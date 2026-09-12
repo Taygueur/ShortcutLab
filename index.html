@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShortcutLab — Raccourcis Windows</title>
+
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =========================
+           BASE
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #050505;
+            color: white;
+            font-family: "Poppins", sans-serif;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: relative;
+            z-index: 20;
+
+            height: 80px;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+        }
+
+        .logo {
+            font-family: "Orbitron", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            opacity: 0.45;
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #aaa;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: white;
+
+            box-shadow: 0 0 12px rgba(255,255,255,0.8);
+
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            position: relative;
+            min-height: calc(100vh - 80px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 60px 20px 100px;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           VAGUES / CERCLES
+        ========================= */
+
+        .waves {
+            position: absolute;
+            inset: -30%;
+            z-index: 0;
+
+            pointer-events: none;
+
+            transition: transform 0.15s ease-out;
+        }
+
+        .wave {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+
+            animation: waveFloat linear infinite;
+        }
+
+        .wave:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            animation-duration: 14s;
+        }
+
+        .wave:nth-child(2) {
+            width: 650px;
+            height: 650px;
+            animation-duration: 18s;
+            animation-delay: -4s;
+        }
+
+        .wave:nth-child(3) {
+            width: 900px;
+            height: 900px;
+            animation-duration: 22s;
+            animation-delay: -8s;
+        }
+
+        .wave:nth-child(4) {
+            width: 1200px;
+            height: 1200px;
+            animation-duration: 27s;
+            animation-delay: -12s;
+        }
+
+        .wave:nth-child(5) {
+            width: 1500px;
+            height: 1500px;
+            animation-duration: 32s;
+            animation-delay: -16s;
+        }
+
+        .wave:nth-child(6) {
+            width: 1850px;
+            height: 1850px;
+            animation-duration: 38s;
+            animation-delay: -20s;
+        }
+
+        @keyframes waveFloat {
+
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(0.96);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.04);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) scale(0.96);
+            }
+        }
+
+
+        /* =========================
+           LUMIÈRE CENTRALE
+        ========================= */
+
+        .glow {
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            background: rgba(255,255,255,0.035);
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+
+            pointer-events: none;
+
+            animation: glowPulse 5s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================
+           CONTENU
+        ========================= */
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+
+            max-width: 900px;
+
+            animation: heroAppear 1s ease forwards;
+        }
+
+        @keyframes heroAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mini-title {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 12px;
+            letter-spacing: 5px;
+
+            color: #888;
+
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: clamp(42px, 7vw, 90px);
+
+            line-height: 0.95;
+
+            font-weight: 800;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 28px;
+
+            text-shadow:
+                0 0 30px rgba(255,255,255,0.08);
+        }
+
+        h1 span {
+            display: block;
+            color: #777;
+        }
+
+        .description {
+            max-width: 600px;
+
+            margin: 0 auto 45px;
+
+            color: #aaa;
+
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           BOUTONS
+        ========================= */
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 220px;
+
+            padding: 17px 25px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 12px;
+
+            letter-spacing: 1.5px;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+
+            box-shadow: 0 10px 35px rgba(255,255,255,0.08);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255,255,255,0.18);
+
+            color: white;
+
+            background: rgba(255,255,255,0.025);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 45px rgba(255,255,255,0.18);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+
+            border-color: rgba(255,255,255,0.4);
+        }
+
+
+        /* =========================
+           PETITE INFO
+        ========================= */
+
+        .info {
+            margin-top: 55px;
+
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+
+            color: #555;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-item span {
+            color: #aaa;
+        }
+
+
+        /* =========================
+           BAS DE PAGE
+        ========================= */
+
+        .scroll {
+            position: absolute;
+
+            bottom: 30px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: #444;
+
+            font-size: 9px;
+
+            letter-spacing: 3px;
+
+            z-index: 5;
+
+            animation: scrollFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollFloat {
+
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(7px);
+            }
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            .nav-status {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 30px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .info {
+                gap: 18px;
+                flex-wrap: wrap;
+            }
+
+            .wave:nth-child(1) {
+                width: 300px;
+                height: 300px;
+            }
+
+            .wave:nth-child(2) {
+                width: 500px;
+                height: 500px;
+            }
+
+            .wave:nth-child(3) {
+                width: 700px;
+                height: 700px;
+            }
+
+            .wave:nth-child(4) {
+                width: 950px;
+                height: 950px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            SHORTCUT<span>LAB</span>
+        </div>
+
+        <div class="nav-status">
+            <div class="status-dot"></div>
+            SYSTÈME ACTIF
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         ACCUEIL
+    ========================= -->
+
+    <main class="hero">
+
+
+        <!-- Lumière -->
+        <div class="glow"></div>
+
+
+        <!-- Vagues -->
+        <div class="waves" id="waves">
+
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+
+        </div>
+
+
+        <!-- Contenu -->
+
+        <div class="hero-content">
+
+            <div class="mini-title">
+                01 // WINDOWS
+            </div>
+
+
+            <h1>
+                APPRENDS LES
+                <span>RACCOURCIS</span>
+            </h1>
+
+
+            <p class="description">
+                Maîtrise les raccourcis Windows essentiels,
+                gagne en rapidité et deviens plus efficace
+                sur ton PC.
+            </p>
+
+
+            <!-- Boutons -->
+
+            <div class="buttons">
+
+                <a href="shortcuts.html" class="btn btn-primary">
+                    ⚡ APPRENDRE
+                </a>
+
+                <a href="quiz.html" class="btn btn-secondary">
+                    🧠 MODE QUIZ
+                </a>
+                <a href="progress.html" class="btn btn-secondary">
+    📊 MA PROGRESSION
+</a>
+
+            </div>
+
+
+            <!-- Infos -->
+
+            <div class="info">
+
+                <div class="info-item">
+                    <span>10+</span> RACCOURCIS
+                </div>
+
+                <div class="info-item">
+                    <span>100%</span> GRATUIT
+                </div>
+
+                <div class="info-item">
+                    <span>∞</span> ENTRAÎNEMENT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="scroll">
+            SCROLL ↓
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         SOURIS → VAGUES
+    ========================= -->
+
+    <script>
+
+        const waves = document.getElementById("waves");
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+
+        document.addEventListener("mousemove", (event) => {
+
+            mouseX =
+                (event.clientX / window.innerWidth - 0.5) * 2;
+
+            mouseY =
+                (event.clientY / window.innerHeight - 0.5) * 2;
+
+        });
+
+
+        function animateMouse() {
+
+            currentX += (mouseX - currentX) * 0.04;
+            currentY += (mouseY - currentY) * 0.04;
+
+
+            waves.style.transform = `
+                translate(
+                    ${currentX * 35}px,
+                    ${currentY * 35}px
+                )
+            `;
+
+
+            requestAnimationFrame(animateMouse);
+
+        }
+
+
+        animateMouse();
+
+    </script>
+
+</body>
+</html>

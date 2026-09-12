@@ -1,0 +1,2755 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShortcutLab — Raccourcis Windows</title>
+
+    <!-- POLICES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* ==========================================
+           RESET
+        ========================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background: #050505;
+            color: white;
+
+            font-family: "Poppins", sans-serif;
+
+            overflow-x: hidden;
+        }
+
+
+        /* ==========================================
+           FOND VAGUES
+        ========================================== */
+
+        body::before,
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 900px;
+            height: 900px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255, 255, 255, 0.04);
+
+            pointer-events: none;
+
+            z-index: -2;
+        }
+
+
+        body::before {
+            top: -500px;
+            left: -250px;
+        }
+
+
+        body::after {
+            bottom: -550px;
+            right: -250px;
+        }
+
+
+        .wave {
+            position: fixed;
+
+            width: 700px;
+            height: 700px;
+
+            border: 1px solid rgba(255, 255, 255, 0.035);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            animation: waveMove 12s ease-in-out infinite alternate;
+        }
+
+
+        .wave.one {
+            top: -350px;
+            right: -250px;
+        }
+
+
+        .wave.two {
+            bottom: -400px;
+            left: -300px;
+
+            animation-delay: 2s;
+        }
+
+
+        @keyframes waveMove {
+
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(30px, 20px) scale(1.08);
+            }
+
+        }
+
+
+        /* ==========================================
+           NAVIGATION
+        ========================================== */
+
+        nav {
+            width: min(1200px, 92%);
+
+            margin: 0 auto;
+
+            padding: 25px 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .logo {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 19px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+        }
+
+
+        .logo span {
+            color: #777;
+        }
+
+
+        .back {
+            color: #999;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .back:hover {
+            color: white;
+        }
+
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        .header {
+            width: min(1100px, 90%);
+
+            margin: 70px auto 40px;
+        }
+
+
+        .small-title {
+            color: #777;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 15px;
+        }
+
+
+        h1 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: clamp(35px, 6vw, 65px);
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: -2px;
+        }
+
+
+        h1 span {
+            color: transparent;
+
+            -webkit-text-stroke: 1px white;
+        }
+
+
+        .header p {
+            color: #888;
+
+            margin-top: 15px;
+
+            max-width: 650px;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================================
+           PROGRESSION
+        ========================================== */
+
+        .progress-section {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 35px;
+
+            padding: 20px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            background: rgba(255, 255, 255, 0.025);
+
+            border-radius: 14px;
+        }
+
+
+        .progress-info {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+        }
+
+
+        .progress-label {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            color: white;
+        }
+
+
+        .progress-count {
+            margin-left: 12px;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+
+        #progressPercent {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 13px;
+
+            color: white;
+        }
+
+
+        .progress-bar {
+            width: 100%;
+
+            height: 6px;
+
+            background: #171717;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-fill {
+            width: 0%;
+
+            height: 100%;
+
+            background: white;
+
+            border-radius: 20px;
+
+            transition: width 0.4s ease;
+        }
+
+
+        /* ==========================================
+           RECHERCHE
+        ========================================== */
+
+        .search-container {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 25px;
+        }
+
+
+        .search-box {
+            width: 100%;
+
+            padding: 17px 20px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            background: rgba(255, 255, 255, 0.035);
+
+            color: white;
+
+            outline: none;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 14px;
+
+            transition: 0.25s;
+        }
+
+
+        .search-box::placeholder {
+            color: #666;
+        }
+
+
+        .search-box:focus {
+            border-color: rgba(255, 255, 255, 0.35);
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        /* ==========================================
+           CATÉGORIES
+        ========================================== */
+
+        .categories {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 35px;
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .category {
+            padding: 10px 17px;
+
+            border-radius: 30px;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            background: transparent;
+
+            color: #888;
+
+            cursor: pointer;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 12px;
+
+            transition: 0.25s;
+        }
+
+
+        .category:hover {
+            color: white;
+
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+
+        .category.active {
+            background: white;
+
+            color: black;
+
+            border-color: white;
+        }
+
+
+        /* ==========================================
+           GRILLE
+        ========================================== */
+
+        .shortcuts-grid {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 100px;
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+
+        /* ==========================================
+           CARTE
+        ========================================== */
+
+        .shortcut-card {
+            position: relative;
+
+            min-height: 180px;
+
+            padding: 25px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.025);
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .shortcut-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -90px;
+            bottom: -90px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+
+            border-color: rgba(255, 255, 255, 0.25);
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        .number {
+            color: #666;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .keys {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+
+        kbd {
+            min-width: 35px;
+
+            padding: 7px 10px;
+
+            border-radius: 7px;
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            background: #111;
+
+            color: white;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 11px;
+
+            text-align: center;
+
+            box-shadow: 0 3px 0 rgba(255, 255, 255, 0.08);
+        }
+
+
+        .shortcut-card h2 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .shortcut-card p {
+            color: #777;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==========================================
+           MODAL
+        ========================================== */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0, 0, 0, 0.78);
+
+            backdrop-filter: blur(12px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition: 0.25s;
+
+            z-index: 1000;
+        }
+
+
+        .modal.active {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+        }
+
+
+        .modal-box {
+            position: relative;
+
+            width: min(560px, 100%);
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            background: #090909;
+
+            transform: translateY(20px) scale(0.97);
+
+            transition: 0.3s;
+        }
+
+
+        .modal.active .modal-box {
+            transform: translateY(0) scale(1);
+        }
+
+
+        .close-modal {
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            width: 35px;
+            height: 35px;
+
+            border: 0;
+
+            border-radius: 50%;
+
+            background: #151515;
+
+            color: #aaa;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .close-modal:hover {
+            color: white;
+
+            background: #222;
+        }
+
+
+        .modal-category {
+            color: #777;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .modal-keys {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+
+        .modal-keys kbd {
+            font-size: 13px;
+
+            padding: 9px 13px;
+        }
+
+
+        .modal-box h2 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .modal-description {
+            color: #aaa;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ==========================================
+           EXEMPLE
+        ========================================== */
+
+        .example-box {
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background: #111;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            margin-bottom: 20px;
+        }
+
+
+        .example-title {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            color: #aaa;
+
+            margin-bottom: 8px;
+        }
+
+
+        .example-box p {
+            color: #ddd;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==========================================
+           BOUTON JE CONNAIS
+        ========================================== */
+
+        .know-button {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            border: 1px solid white;
+
+            background: white;
+
+            color: black;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .know-button:hover {
+            background: transparent;
+
+            color: white;
+        }
+
+
+        .know-button.mastered {
+            background: transparent;
+
+            color: white;
+
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+
+        .know-button.mastered:hover {
+            background: white;
+
+            color: black;
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 20px 0;
+            }
+
+
+            .header {
+                margin-top: 45px;
+            }
+
+
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .progress-info {
+                align-items: flex-start;
+
+                gap: 10px;
+            }
+
+
+            .progress-count {
+                display: block;
+
+                margin-left: 0;
+
+                margin-top: 5px;
+            }
+
+
+            .modal-box {
+                padding: 25px;
+            }
+
+
+            .modal-box h2 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- VAGUES -->
+    <div class="wave one"></div>
+    <div class="wave two"></div>
+
+
+    <!-- ==========================================
+         NAVIGATION
+    ========================================== -->
+
+    <nav>
+
+        <div class="logo">
+            SHORTCUT<span>LAB</span>
+        </div>
+
+        <a href="index.html" class="back">
+            ← Retour à l'accueil
+        </a>
+
+    </nav>
+
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <header class="header">
+
+        <div class="small-title">
+            01 // WINDOWS
+        </div>
+
+        <h1>
+            LES <span>RACCOURCIS</span>
+        </h1>
+
+        <p>
+            Apprends les raccourcis Windows les plus utiles
+            et gagne du temps sur ton PC.
+        </p>
+
+    </header>
+
+
+    <!-- ==========================================
+         PROGRESSION
+    ========================================== -->
+
+    <section class="progress-section">
+
+        <div class="progress-info">
+
+            <div>
+
+                <span class="progress-label">
+                    PROGRESSION
+                </span>
+
+                <span
+                    class="progress-count"
+                    id="progressCount"
+                >
+                    0 / 10 maîtrisés
+                </span>
+
+            </div>
+
+            <span id="progressPercent">
+                0%
+            </span>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         RECHERCHE
+    ========================================== -->
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="🔎 Rechercher un raccourci..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- ==========================================
+         CATÉGORIES
+    ========================================== -->
+
+    <div class="categories">
+
+        <button class="category active">
+            Tous
+        </button>
+
+        <button class="category">
+            Essentiel
+        </button>
+
+        <button class="category">
+            Windows
+        </button>
+
+        <button class="category">
+            Productivité
+        </button>
+
+        <button class="category">
+            Système
+        </button>
+
+    </div>
+
+
+    <!-- ==========================================
+         RACCOURCIS
+    ========================================== -->
+
+    <main class="shortcuts-grid">
+
+
+        <!-- CTRL C -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + C"
+        >
+
+            <div class="number">
+                01 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>C</kbd>
+
+            </div>
+
+            <h2>
+                Copier
+            </h2>
+
+            <p>
+                Copie l'élément sélectionné.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL V -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + V"
+        >
+
+            <div class="number">
+                02 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>V</kbd>
+
+            </div>
+
+            <h2>
+                Coller
+            </h2>
+
+            <p>
+                Colle l'élément copié ou coupé.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL X -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + X"
+        >
+
+            <div class="number">
+                03 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>X</kbd>
+
+            </div>
+
+            <h2>
+                Couper
+            </h2>
+
+            <p>
+                Coupe l'élément sélectionné.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL Z -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + Z"
+        >
+
+            <div class="number">
+                04 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>Z</kbd>
+
+            </div>
+
+            <h2>
+                Annuler
+            </h2>
+
+            <p>
+                Annule la dernière action.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL A -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + A"
+        >
+
+            <div class="number">
+                05 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>A</kbd>
+
+            </div>
+
+            <h2>
+                Tout sélectionner
+            </h2>
+
+            <p>
+                Sélectionne tous les éléments.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL S -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + S"
+        >
+
+            <div class="number">
+                06 // PRODUCTIVITÉ
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>S</kbd>
+
+            </div>
+
+            <h2>
+                Enregistrer
+            </h2>
+
+            <p>
+                Enregistre rapidement ton travail.
+            </p>
+
+        </article>
+
+
+        <!-- WIN E -->
+
+        <article
+            class="shortcut-card"
+            data-keys="WIN + E"
+        >
+
+            <div class="number">
+                07 // WINDOWS
+            </div>
+
+            <div class="keys">
+
+                <kbd>WIN</kbd>
+                <span>+</span>
+                <kbd>E</kbd>
+
+            </div>
+
+            <h2>
+                Explorateur de fichiers
+            </h2>
+
+            <p>
+                Ouvre rapidement l'Explorateur de fichiers.
+            </p>
+
+        </article>
+
+
+        <!-- ALT TAB -->
+
+        <article
+            class="shortcut-card"
+            data-keys="ALT + TAB"
+        >
+
+            <div class="number">
+                08 // WINDOWS
+            </div>
+
+            <div class="keys">
+
+                <kbd>ALT</kbd>
+                <span>+</span>
+                <kbd>TAB</kbd>
+
+            </div>
+
+            <h2>
+                Changer de fenêtre
+            </h2>
+
+            <p>
+                Passe rapidement d'une fenêtre à l'autre.
+            </p>
+
+        </article>
+
+
+        <!-- WIN D -->
+
+        <article
+            class="shortcut-card"
+            data-keys="WIN + D"
+        >
+
+            <div class="number">
+                09 // WINDOWS
+            </div>
+
+            <div class="keys">
+
+                <kbd>WIN</kbd>
+                <span>+</span>
+                <kbd>D</kbd>
+
+            </div>
+
+            <h2>
+                Afficher le bureau
+            </h2>
+
+            <p>
+                Affiche instantanément le bureau Windows.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL SHIFT ESC -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + SHIFT + ESC"
+        >
+
+            <div class="number">
+                10 // SYSTÈME
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>SHIFT</kbd>
+                <span>+</span>
+                <kbd>ESC</kbd>
+
+            </div>
+
+            <h2>
+                Gestionnaire des tâches
+            </h2>
+
+            <p>
+                Ouvre directement le Gestionnaire des tâches.
+            </p>
+
+        </article>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="shortcutModal"
+    >
+
+        <div class="modal-box">
+
+            <button
+                class="close-modal"
+                id="closeModal"
+                aria-label="Fermer"
+            >
+                ×
+            </button>
+
+
+            <div
+                class="modal-category"
+                id="modalCategory"
+            >
+                01 // ESSENTIEL
+            </div>
+
+
+            <div
+                class="modal-keys"
+                id="modalKeys"
+            ></div>
+
+
+            <h2 id="modalTitle">
+                Copier
+            </h2>
+
+
+            <p
+                class="modal-description"
+                id="modalDescription"
+            >
+                Copie l'élément sélectionné.
+            </p>
+
+
+            <div class="example-box">
+
+                <div class="example-title">
+                    💡 EXEMPLE
+                </div>
+
+                <p id="modalExample">
+                    Sélectionne un texte puis utilise
+                    Ctrl + C pour le copier.
+                </p>
+
+            </div>
+
+
+            <button
+                class="know-button"
+                id="knowButton"
+            >
+                ✓ JE CONNAIS CE RACCOURCI
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html><!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShortcutLab — Raccourcis Windows</title>
+
+    <!-- POLICES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* ==========================================
+           RESET
+        ========================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background: #050505;
+            color: white;
+
+            font-family: "Poppins", sans-serif;
+
+            overflow-x: hidden;
+        }
+
+
+        /* ==========================================
+           FOND VAGUES
+        ========================================== */
+
+        body::before,
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 900px;
+            height: 900px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255, 255, 255, 0.04);
+
+            pointer-events: none;
+
+            z-index: -2;
+        }
+
+
+        body::before {
+            top: -500px;
+            left: -250px;
+        }
+
+
+        body::after {
+            bottom: -550px;
+            right: -250px;
+        }
+
+
+        .wave {
+            position: fixed;
+
+            width: 700px;
+            height: 700px;
+
+            border: 1px solid rgba(255, 255, 255, 0.035);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            animation: waveMove 12s ease-in-out infinite alternate;
+        }
+
+
+        .wave.one {
+            top: -350px;
+            right: -250px;
+        }
+
+
+        .wave.two {
+            bottom: -400px;
+            left: -300px;
+
+            animation-delay: 2s;
+        }
+
+
+        @keyframes waveMove {
+
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(30px, 20px) scale(1.08);
+            }
+
+        }
+
+
+        /* ==========================================
+           NAVIGATION
+        ========================================== */
+
+        nav {
+            width: min(1200px, 92%);
+
+            margin: 0 auto;
+
+            padding: 25px 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .logo {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 19px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+        }
+
+
+        .logo span {
+            color: #777;
+        }
+
+
+        .back {
+            color: #999;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .back:hover {
+            color: white;
+        }
+
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        .header {
+            width: min(1100px, 90%);
+
+            margin: 70px auto 40px;
+        }
+
+
+        .small-title {
+            color: #777;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 15px;
+        }
+
+
+        h1 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: clamp(35px, 6vw, 65px);
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: -2px;
+        }
+
+
+        h1 span {
+            color: transparent;
+
+            -webkit-text-stroke: 1px white;
+        }
+
+
+        .header p {
+            color: #888;
+
+            margin-top: 15px;
+
+            max-width: 650px;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================================
+           PROGRESSION
+        ========================================== */
+
+        .progress-section {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 35px;
+
+            padding: 20px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            background: rgba(255, 255, 255, 0.025);
+
+            border-radius: 14px;
+        }
+
+
+        .progress-info {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+        }
+
+
+        .progress-label {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            color: white;
+        }
+
+
+        .progress-count {
+            margin-left: 12px;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+
+        #progressPercent {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 13px;
+
+            color: white;
+        }
+
+
+        .progress-bar {
+            width: 100%;
+
+            height: 6px;
+
+            background: #171717;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-fill {
+            width: 0%;
+
+            height: 100%;
+
+            background: white;
+
+            border-radius: 20px;
+
+            transition: width 0.4s ease;
+        }
+
+
+        /* ==========================================
+           RECHERCHE
+        ========================================== */
+
+        .search-container {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 25px;
+        }
+
+
+        .search-box {
+            width: 100%;
+
+            padding: 17px 20px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            background: rgba(255, 255, 255, 0.035);
+
+            color: white;
+
+            outline: none;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 14px;
+
+            transition: 0.25s;
+        }
+
+
+        .search-box::placeholder {
+            color: #666;
+        }
+
+
+        .search-box:focus {
+            border-color: rgba(255, 255, 255, 0.35);
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        /* ==========================================
+           CATÉGORIES
+        ========================================== */
+
+        .categories {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 35px;
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .category {
+            padding: 10px 17px;
+
+            border-radius: 30px;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            background: transparent;
+
+            color: #888;
+
+            cursor: pointer;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 12px;
+
+            transition: 0.25s;
+        }
+
+
+        .category:hover {
+            color: white;
+
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+
+        .category.active {
+            background: white;
+
+            color: black;
+
+            border-color: white;
+        }
+
+
+        /* ==========================================
+           GRILLE
+        ========================================== */
+
+        .shortcuts-grid {
+            width: min(1100px, 90%);
+
+            margin: 0 auto 100px;
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+
+        /* ==========================================
+           CARTE
+        ========================================== */
+
+        .shortcut-card {
+            position: relative;
+
+            min-height: 180px;
+
+            padding: 25px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.025);
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .shortcut-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -90px;
+            bottom: -90px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+
+            border-color: rgba(255, 255, 255, 0.25);
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        .number {
+            color: #666;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .keys {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+
+        kbd {
+            min-width: 35px;
+
+            padding: 7px 10px;
+
+            border-radius: 7px;
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            background: #111;
+
+            color: white;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 11px;
+
+            text-align: center;
+
+            box-shadow: 0 3px 0 rgba(255, 255, 255, 0.08);
+        }
+
+
+        .shortcut-card h2 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .shortcut-card p {
+            color: #777;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==========================================
+           MODAL
+        ========================================== */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0, 0, 0, 0.78);
+
+            backdrop-filter: blur(12px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition: 0.25s;
+
+            z-index: 1000;
+        }
+
+
+        .modal.active {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+        }
+
+
+        .modal-box {
+            position: relative;
+
+            width: min(560px, 100%);
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            background: #090909;
+
+            transform: translateY(20px) scale(0.97);
+
+            transition: 0.3s;
+        }
+
+
+        .modal.active .modal-box {
+            transform: translateY(0) scale(1);
+        }
+
+
+        .close-modal {
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            width: 35px;
+            height: 35px;
+
+            border: 0;
+
+            border-radius: 50%;
+
+            background: #151515;
+
+            color: #aaa;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .close-modal:hover {
+            color: white;
+
+            background: #222;
+        }
+
+
+        .modal-category {
+            color: #777;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .modal-keys {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+
+        .modal-keys kbd {
+            font-size: 13px;
+
+            padding: 9px 13px;
+        }
+
+
+        .modal-box h2 {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .modal-description {
+            color: #aaa;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ==========================================
+           EXEMPLE
+        ========================================== */
+
+        .example-box {
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background: #111;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            margin-bottom: 20px;
+        }
+
+
+        .example-title {
+            font-family: "Orbitron", sans-serif;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            color: #aaa;
+
+            margin-bottom: 8px;
+        }
+
+
+        .example-box p {
+            color: #ddd;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==========================================
+           BOUTON JE CONNAIS
+        ========================================== */
+
+        .know-button {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            border: 1px solid white;
+
+            background: white;
+
+            color: black;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .know-button:hover {
+            background: transparent;
+
+            color: white;
+        }
+
+
+        .know-button.mastered {
+            background: transparent;
+
+            color: white;
+
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+
+        .know-button.mastered:hover {
+            background: white;
+
+            color: black;
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 20px 0;
+            }
+
+
+            .header {
+                margin-top: 45px;
+            }
+
+
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .progress-info {
+                align-items: flex-start;
+
+                gap: 10px;
+            }
+
+
+            .progress-count {
+                display: block;
+
+                margin-left: 0;
+
+                margin-top: 5px;
+            }
+
+
+            .modal-box {
+                padding: 25px;
+            }
+
+
+            .modal-box h2 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- VAGUES -->
+    <div class="wave one"></div>
+    <div class="wave two"></div>
+
+
+    <!-- ==========================================
+         NAVIGATION
+    ========================================== -->
+
+    <nav>
+
+        <div class="logo">
+            SHORTCUT<span>LAB</span>
+        </div>
+
+        <a href="index.html" class="back">
+            ← Retour à l'accueil
+        </a>
+
+    </nav>
+
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <header class="header">
+
+        <div class="small-title">
+            01 // WINDOWS
+        </div>
+
+        <h1>
+            LES <span>RACCOURCIS</span>
+        </h1>
+
+        <p>
+            Apprends les raccourcis Windows les plus utiles
+            et gagne du temps sur ton PC.
+        </p>
+
+    </header>
+
+
+    <!-- ==========================================
+         PROGRESSION
+    ========================================== -->
+
+    <section class="progress-section">
+
+        <div class="progress-info">
+
+            <div>
+
+                <span class="progress-label">
+                    PROGRESSION
+                </span>
+
+                <span
+                    class="progress-count"
+                    id="progressCount"
+                >
+                    0 / 10 maîtrisés
+                </span>
+
+            </div>
+
+            <span id="progressPercent">
+                0%
+            </span>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         RECHERCHE
+    ========================================== -->
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="🔎 Rechercher un raccourci..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- ==========================================
+         CATÉGORIES
+    ========================================== -->
+
+    <div class="categories">
+
+        <button class="category active">
+            Tous
+        </button>
+
+        <button class="category">
+            Essentiel
+        </button>
+
+        <button class="category">
+            Windows
+        </button>
+
+        <button class="category">
+            Productivité
+        </button>
+
+        <button class="category">
+            Système
+        </button>
+
+    </div>
+
+
+    <!-- ==========================================
+         RACCOURCIS
+    ========================================== -->
+
+    <main class="shortcuts-grid">
+
+
+        <!-- CTRL C -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + C"
+        >
+
+            <div class="number">
+                01 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>C</kbd>
+
+            </div>
+
+            <h2>
+                Copier
+            </h2>
+
+            <p>
+                Copie l'élément sélectionné.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL V -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + V"
+        >
+
+            <div class="number">
+                02 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>V</kbd>
+
+            </div>
+
+            <h2>
+                Coller
+            </h2>
+
+            <p>
+                Colle l'élément copié ou coupé.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL X -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + X"
+        >
+
+            <div class="number">
+                03 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>X</kbd>
+
+            </div>
+
+            <h2>
+                Couper
+            </h2>
+
+            <p>
+                Coupe l'élément sélectionné.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL Z -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + Z"
+        >
+
+            <div class="number">
+                04 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>Z</kbd>
+
+            </div>
+
+            <h2>
+                Annuler
+            </h2>
+
+            <p>
+                Annule la dernière action.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL A -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + A"
+        >
+
+            <div class="number">
+                05 // ESSENTIEL
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>A</kbd>
+
+            </div>
+
+            <h2>
+                Tout sélectionner
+            </h2>
+
+            <p>
+                Sélectionne tous les éléments.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL S -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + S"
+        >
+
+            <div class="number">
+                06 // PRODUCTIVITÉ
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>S</kbd>
+
+            </div>
+
+            <h2>
+                Enregistrer
+            </h2>
+
+            <p>
+                Enregistre rapidement ton travail.
+            </p>
+
+        </article>
+
+
+        <!-- WIN E -->
+
+        <article
+            class="shortcut-card"
+            data-keys="WIN + E"
+        >
+
+            <div class="number">
+                07 // WINDOWS
+            </div>
+
+            <div class="keys">
+
+                <kbd>WIN</kbd>
+                <span>+</span>
+                <kbd>E</kbd>
+
+            </div>
+
+            <h2>
+                Explorateur de fichiers
+            </h2>
+
+            <p>
+                Ouvre rapidement l'Explorateur de fichiers.
+            </p>
+
+        </article>
+
+
+        <!-- ALT TAB -->
+
+        <article
+            class="shortcut-card"
+            data-keys="ALT + TAB"
+        >
+
+            <div class="number">
+                08 // WINDOWS
+            </div>
+
+            <div class="keys">
+
+                <kbd>ALT</kbd>
+                <span>+</span>
+                <kbd>TAB</kbd>
+
+            </div>
+
+            <h2>
+                Changer de fenêtre
+            </h2>
+
+            <p>
+                Passe rapidement d'une fenêtre à l'autre.
+            </p>
+
+        </article>
+
+
+        <!-- WIN D -->
+
+        <article
+            class="shortcut-card"
+            data-keys="WIN + D"
+        >
+
+            <div class="number">
+                09 // WINDOWS
+            </div>
+
+            <div class="keys">
+
+                <kbd>WIN</kbd>
+                <span>+</span>
+                <kbd>D</kbd>
+
+            </div>
+
+            <h2>
+                Afficher le bureau
+            </h2>
+
+            <p>
+                Affiche instantanément le bureau Windows.
+            </p>
+
+        </article>
+
+
+        <!-- CTRL SHIFT ESC -->
+
+        <article
+            class="shortcut-card"
+            data-keys="CTRL + SHIFT + ESC"
+        >
+
+            <div class="number">
+                10 // SYSTÈME
+            </div>
+
+            <div class="keys">
+
+                <kbd>CTRL</kbd>
+                <span>+</span>
+                <kbd>SHIFT</kbd>
+                <span>+</span>
+                <kbd>ESC</kbd>
+
+            </div>
+
+            <h2>
+                Gestionnaire des tâches
+            </h2>
+
+            <p>
+                Ouvre directement le Gestionnaire des tâches.
+            </p>
+
+        </article>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="shortcutModal"
+    >
+
+        <div class="modal-box">
+
+            <button
+                class="close-modal"
+                id="closeModal"
+                aria-label="Fermer"
+            >
+                ×
+            </button>
+
+
+            <div
+                class="modal-category"
+                id="modalCategory"
+            >
+                01 // ESSENTIEL
+            </div>
+
+
+            <div
+                class="modal-keys"
+                id="modalKeys"
+            ></div>
+
+
+            <h2 id="modalTitle">
+                Copier
+            </h2>
+
+
+            <p
+                class="modal-description"
+                id="modalDescription"
+            >
+                Copie l'élément sélectionné.
+            </p>
+
+
+            <div class="example-box">
+
+                <div class="example-title">
+                    💡 EXEMPLE
+                </div>
+
+                <p id="modalExample">
+                    Sélectionne un texte puis utilise
+                    Ctrl + C pour le copier.
+                </p>
+
+            </div>
+
+
+            <button
+                class="know-button"
+                id="knowButton"
+            >
+                ✓ JE CONNAIS CE RACCOURCI
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
