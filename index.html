@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- =========================
-         SEO
-    ========================= -->
-
+<link rel="icon" type="image/png" href="logo.png">
+    <!-- SEO -->
     <title>ShortcutLab — Raccourcis clavier Windows</title>
 
     <meta
@@ -24,14 +20,11 @@
         href="https://taygueur.github.io/ShortcutLab/"
     >
 
+    <!-- Apparence du navigateur -->
     <meta name="theme-color" content="#050505">
 
     <!-- Partage sur les réseaux -->
-
-    <meta
-        property="og:title"
-        content="ShortcutLab — Raccourcis clavier Windows"
-    >
+    <meta property="og:title" content="ShortcutLab — Raccourcis clavier Windows">
 
     <meta
         property="og:description"
@@ -45,11 +38,7 @@
 
     <meta property="og:type" content="website">
 
-
-    <!-- =========================
-         POLICES
-    ========================= -->
-
+    <!-- Polices -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
@@ -62,7 +51,6 @@
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
-
 
     <style>
 
@@ -140,7 +128,6 @@
         }
 
         @keyframes statusPulse {
-
             0%, 100% {
                 opacity: 0.4;
             }
@@ -194,7 +181,6 @@
             transform: translate(-50%, -50%);
 
             border: 1px solid rgba(255,255,255,0.08);
-
             border-radius: 50%;
 
             animation: waveFloat linear infinite;
@@ -364,7 +350,6 @@
             color: #aaa;
 
             font-size: 15px;
-
             line-height: 1.8;
         }
 
@@ -375,7 +360,6 @@
 
         .buttons {
             display: flex;
-
             justify-content: center;
             align-items: center;
 
@@ -388,7 +372,6 @@
             position: relative;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
@@ -416,18 +399,15 @@
             background: white;
             color: black;
 
-            box-shadow:
-                0 10px 35px rgba(255,255,255,0.08);
+            box-shadow: 0 10px 35px rgba(255,255,255,0.08);
         }
 
         .btn-secondary {
-            border:
-                1px solid rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.18);
 
             color: white;
 
-            background:
-                rgba(255,255,255,0.025);
+            background: rgba(255,255,255,0.025);
 
             backdrop-filter: blur(10px);
         }
@@ -437,16 +417,13 @@
         }
 
         .btn-primary:hover {
-            box-shadow:
-                0 15px 45px rgba(255,255,255,0.18);
+            box-shadow: 0 15px 45px rgba(255,255,255,0.18);
         }
 
         .btn-secondary:hover {
-            background:
-                rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.08);
 
-            border-color:
-                rgba(255,255,255,0.4);
+            border-color: rgba(255,255,255,0.4);
         }
 
 
@@ -458,9 +435,7 @@
             margin-top: 55px;
 
             display: flex;
-
             justify-content: center;
-
             gap: 40px;
 
             color: #555;
@@ -472,9 +447,7 @@
 
         .info-item {
             display: flex;
-
             align-items: center;
-
             gap: 8px;
         }
 
@@ -503,22 +476,17 @@
 
             z-index: 5;
 
-            animation:
-                scrollFloat 2s ease-in-out infinite;
+            animation: scrollFloat 2s ease-in-out infinite;
         }
 
         @keyframes scrollFloat {
 
             0%, 100% {
-                transform:
-                    translateX(-50%)
-                    translateY(0);
+                transform: translateX(-50%) translateY(0);
             }
 
             50% {
-                transform:
-                    translateX(-50%)
-                    translateY(7px);
+                transform: translateX(-50%) translateY(7px);
             }
         }
 
@@ -579,9 +547,14 @@
                 height: 950px;
             }
         }
+        .logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    display: block;
+}
 
     </style>
-
 </head>
 
 
@@ -593,31 +566,31 @@
 
     <nav>
 
-        <div class="logo">
-            SHORTCUT<span>LAB</span>
-        </div>
+        <a href="index.html" class="logo">
+    <img src="logo.png" alt="ShortcutLab">
+</a>
 
         <div class="nav-status">
-
             <div class="status-dot"></div>
-
             SYSTÈME ACTIF
-
         </div>
 
     </nav>
 
 
     <!-- =========================
-         HERO
+         ACCUEIL
     ========================= -->
 
     <main class="hero">
 
 
-        <!-- VAGUES -->
+        <!-- Lumière -->
+        <div class="glow"></div>
 
-        <div class="waves">
+
+        <!-- Vagues -->
+        <div class="waves" id="waves">
 
             <div class="wave"></div>
             <div class="wave"></div>
@@ -629,12 +602,7 @@
         </div>
 
 
-        <!-- LUMIÈRE -->
-
-        <div class="glow"></div>
-
-
-        <!-- CONTENU -->
+        <!-- Contenu -->
 
         <div class="hero-content">
 
@@ -644,71 +612,50 @@
 
 
             <h1>
-
                 APPRENDS LES
-
                 <span>RACCOURCIS</span>
-
             </h1>
 
 
             <p class="description">
-
-                Maîtrise les raccourcis clavier Windows
-                et gagne du temps au quotidien.
-
-                Apprends, entraîne-toi et mesure ta progression.
-
+                Maîtrise les raccourcis Windows essentiels,
+                gagne en rapidité et deviens plus efficace
+                sur ton PC.
             </p>
 
 
-            <!-- BOUTONS -->
+            <!-- Boutons -->
 
             <div class="buttons">
 
-                <a
-                    href="shortcuts.html"
-                    class="btn btn-primary"
-                >
+                <a href="shortcuts.html" class="btn btn-primary">
                     ⚡ APPRENDRE
                 </a>
 
-
-                <a
-                    href="quiz.html"
-                    class="btn btn-secondary"
-                >
+                <a href="quiz.html" class="btn btn-secondary">
                     🧠 MODE QUIZ
                 </a>
-
-
-                <a
-                    href="progress.html"
-                    class="btn btn-secondary"
-                >
-                    📊 MA PROGRESSION
-                </a>
+                <a href="progress.html" class="btn btn-secondary">
+    📊 MA PROGRESSION
+</a>
 
             </div>
 
 
-            <!-- INFOS -->
+            <!-- Infos -->
 
             <div class="info">
 
                 <div class="info-item">
-                    ⚡
-                    <span>10+ RACCOURCIS</span>
+                    <span>10+</span> RACCOURCIS
                 </div>
 
                 <div class="info-item">
-                    🧠
-                    <span>QUIZ</span>
+                    <span>100%</span> GRATUIT
                 </div>
 
                 <div class="info-item">
-                    🏆
-                    <span>PROGRESSION</span>
+                    <span>∞</span> ENTRAÎNEMENT
                 </div>
 
             </div>
@@ -724,12 +671,12 @@
 
 
     <!-- =========================
-         ANIMATION SOURIS
+         SOURIS → VAGUES
     ========================= -->
 
     <script>
 
-        const waves = document.querySelector(".waves");
+        const waves = document.getElementById("waves");
 
         let mouseX = 0;
         let mouseY = 0;
@@ -741,36 +688,36 @@
         document.addEventListener("mousemove", (event) => {
 
             mouseX =
-                (event.clientX / window.innerWidth - 0.5) * 30;
+                (event.clientX / window.innerWidth - 0.5) * 2;
 
             mouseY =
-                (event.clientY / window.innerHeight - 0.5) * 30;
+                (event.clientY / window.innerHeight - 0.5) * 2;
 
         });
 
 
-        function animateWaves() {
+        function animateMouse() {
 
-            currentX +=
-                (mouseX - currentX) * 0.05;
-
-            currentY +=
-                (mouseY - currentY) * 0.05;
+            currentX += (mouseX - currentX) * 0.04;
+            currentY += (mouseY - currentY) * 0.04;
 
 
-            waves.style.transform =
-                `translate(${currentX}px, ${currentY}px)`;
+            waves.style.transform = `
+                translate(
+                    ${currentX * 35}px,
+                    ${currentY * 35}px
+                )
+            `;
 
 
-            requestAnimationFrame(animateWaves);
+            requestAnimationFrame(animateMouse);
 
         }
 
 
-        animateWaves();
+        animateMouse();
 
     </script>
 
 </body>
-
 </html>
